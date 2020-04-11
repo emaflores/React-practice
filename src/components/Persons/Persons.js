@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import Person from './Person/Person'
+
 //const persons = (props) => {
-class Persons extends Component {
+class Persons extends PureComponent {
 
     // static getDerivedStateFromProps(props, state){
     //     console.log('[Persons.js] getDerivedStateFromProps');
@@ -11,15 +12,19 @@ class Persons extends Component {
     //     console.log('[Persons.js] componentWillReceiveProps', props);
     // }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        console.log('[Persons.js] shouldComponentUpdate');
-        if (nextProps.persons !== this.props.persons) {
-            return true;
-        } else {
-            return false;
-        }
+    // quitamos: { Component } from 'react'
+    // ya que pure component realiza el should
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     console.log('[Persons.js] shouldComponentUpdate');
+    //     if (nextProps.persons !== this.props.persons || 
+    //         nextProps.changed !== this.props.changed ||
+    //         nextProps.clicked !== this.props.clicked) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
         
-    }
+    // }
 
     getSnapshotBeforeUpdate(prevProps, prevState){
         console.log('[Persons.js] getSnapshotBeforeUpdate');
@@ -48,6 +53,7 @@ class Persons extends Component {
             click={() => this.props.clicked(index)}
             key={person.id}
             changed={(event)=>this.props.changed(event, person.id)}
+            isAuth={this.props.isAuthenticated}
             />
             );
           });
